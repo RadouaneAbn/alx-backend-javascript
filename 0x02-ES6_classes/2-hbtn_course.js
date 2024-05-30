@@ -6,7 +6,7 @@ export default class HolbertonCourse {
       throw (new Error('Length must be a number'));
     } else if (!Array.isArray(students)) {
       throw (new Error('Students must be an array'));
-    } else if (!students.forEach((student) => typeof student === 'string')) {
+    } else if (students.forEach((student) => typeof student === 'string')) {
       throw (new Error('Students must be an array of strings'));
     }
 
