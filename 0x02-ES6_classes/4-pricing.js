@@ -13,4 +13,11 @@ export default class Pricing {
   set currency(currency) { this._currency = currency; }
 
   displayFullPrice() { return `${this._amount} ${this._currency.displayFullCurrency()}`; }
+
+  static convertPrice(amount, conversionRate) {
+    if (typeof amount !== 'number') { throw new Error('amount must a number'); }
+    if (typeof conversionRate !== 'number') { throw new Error('conversionRate must a number'); }
+
+    return amount * conversionRate;
+  }
 }
