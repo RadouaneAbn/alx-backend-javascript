@@ -8,6 +8,6 @@ export default async function handleProfileSignup() {
     return { status: 200, body: 'success' };
   } catch (error) {
     console.error('Signup system offline');
-    return Error('');
+    return Error();
   }
 }
