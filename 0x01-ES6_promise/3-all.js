@@ -7,6 +7,6 @@ export default async function handleProfileSignup() {
     console.log(`${photo.body} ${user.firstName} ${user.lastName}`);
     return { status: 200, body: 'success' };
   } catch (error) {
-    return Error();
+    return Error('Signup system offline');
   }
 }
