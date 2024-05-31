@@ -1,5 +1,7 @@
 export class HolbertonClass {
   constructor(year, location) {
+    if (typeof year !== 'number') { throw new TypeError('year must be a number '); }
+    if (typeof location !== 'string') { throw new TypeError('location must be a string '); }
     this._year = year;
     this._location = location;
   }
@@ -8,8 +10,18 @@ export class HolbertonClass {
     return this._year;
   }
 
+  set year(year) {
+    if (typeof year !== 'number') { throw new TypeError('year must be a number '); }
+    this._year = year;
+  }
+
   get location() {
     return this._location;
+  }
+
+  set location(location) {
+    if (typeof location !== 'string') { throw new TypeError('location must be a string '); }
+    this._location = location;
   }
 }
 
