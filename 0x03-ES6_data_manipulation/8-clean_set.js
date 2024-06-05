@@ -1,8 +1,8 @@
 export default function cleanSet(set, startString) {
-  const stringLength = startString.length;
-  if (typeof startString !== 'string' || stringLength === 0) {
+  if (typeof startString !== 'string' || startString.length === 0) {
     return '';
   }
+  const stringLength = startString.length;
   const result = [];
   for (const item of set) {
     if (typeof item === 'string' && item.startsWith(startString)) {
