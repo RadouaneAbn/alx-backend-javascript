@@ -28,21 +28,21 @@ async function countStudents(path) {
 }
 
 const app = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
     res.write('Hello Holberton School!');
     res.end();
-  }
-  
-  else if (req.url === '/students') {
+  } else if (req.url === '/students') {
+    res.setHeader('Content-Type', 'text/plain');
     countStudents(process.argv[2])
       .then((output) => {
+      // console.log(output);
         res.write('This is the list of our students');
-        res.end(output.trimEnd());
+        res.write(output.trimEnd());
+        res.end();
       })
       .catch(() => {
         res.statusCode = 404;
+        // res.write();
         res.end('Cannot load the database');
       });
   }
