@@ -37,7 +37,7 @@ const app = http.createServer((req, res) => {
       .then((output) => {
       // console.log(output);
         res.write('This is the list of our students');
-        res.write(output);
+        res.write(output.trimEnd());
         res.end();
       })
       .catch(() => {
