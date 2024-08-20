@@ -7,7 +7,7 @@ const app = express();
 app.use(router);
 
 app.listen(port, () => {
-  // console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${port}`);
 });
 
 export default app;
