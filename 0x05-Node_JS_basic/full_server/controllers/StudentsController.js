@@ -8,7 +8,7 @@ class StudentsController {
         let output = 'This is the list of our students\n';
         const sortedData = Object.entries(data).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }));
         for (const [key, value] of sortedData) {
-          output += `Number of students in ${key}: ${value.length}. List ${value.join(', ')}\n`;
+          output += `Number of students in ${key}: ${value.length}. List: ${value.join(', ')}\n`;
         }
         response.send(output.trimEnd());
       })
