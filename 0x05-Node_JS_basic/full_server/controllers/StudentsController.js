@@ -13,17 +13,14 @@ class StudentsController {
         response.send(output.join('\n'));
       })
       .catch(() => {
-        response.status = 500;
-        response.send('Cannot load the database');
+        response.status(500).send('Cannot load the database');
       });
   }
 
   static getAllStudentsByMajor(request, response) {
-    // response.status = 200;
     const { major } = request.params;
     if (major !== 'CS' && major !== 'SWE') {
-      response.status = 500;
-      response.send('Major parameter must be CS or SWE');
+      response.status(500).send('Major parameter must be CS or SWE');
       return;
     }
     readDatabase(process.argv[2])
@@ -31,8 +28,7 @@ class StudentsController {
         response.send(`List: ${data[major].join(', ')}`);
       })
       .catch(() => {
-        response.status = 500;
-        response.send('Cannot load the database');
+        response.status(500).send('Cannot load the database');
       });
   }
 }
