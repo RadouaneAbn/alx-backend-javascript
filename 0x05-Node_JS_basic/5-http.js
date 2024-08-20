@@ -1,38 +1,53 @@
 const http = require('http');
-const fs = require('fs').promises;
+const { readFile } = require('fs');
 
-async function countStudents(path) {
-  try {
-    const data = await fs.readFile(path, 'utf-8');
-    const studentFields = Object.create({});
-
-    const lines = data.trimEnd().split('\n');
-    lines.shift();
-    const numberOfStudents = lines.length;
-    for (let i = 0; i < numberOfStudents; i += 1) {
-      const line = lines[i].split(',');
-      if (!(line[3] in studentFields)) {
-        studentFields[line[3]] = [];
+function countStudents(fileName) {
+  const students = {};
+  const fields = {};
+  let length = 0;
+  return new Promise((resolve, reject) => {
+    readFile(fileName, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        let output = '';
+        const lines = data.toString().split('\n');
+        for (let i = 0; i < lines.length; i += 1) {
+          if (lines[i]) {
+            length += 1;
+            const field = lines[i].toString().split(',');
+            if (Object.prototype.hasOwnProperty.call(students, field[3])) {
+              students[field[3]].push(field[0]);
+            } else {
+              students[field[3]] = [field[0]];
+            }
+            if (Object.prototype.hasOwnProperty.call(fields, field[3])) {
+              fields[field[3]] += 1;
+            } else {
+              fields[field[3]] = 1;
+            }
+          }
+        }
+        const l = length - 1;
+        output += `Number of students: ${l}\n`;
+        for (const [key, value] of Object.entries(fields)) {
+          if (key !== 'field') {
+            output += `Number of students in ${key}: ${value}. `;
+            output += `List: ${students[key].join(', ')}\n`;
+          }
+        }
+        resolve(output);
       }
-      studentFields[line[3]].push(line[0]);
-    }
-    let output = `Number of students: ${numberOfStudents}\n`;
-    for (const [field, students] of Object.entries(studentFields)) {
-      output += `Number of students in ${field}: ${students.length}. List: ${students.join(', ')}\n`;
-    }
-    return output;
-  } catch (err) {
-    // console.error(err)
-    throw new Error('Cannot load the database');
-  }
+    });
+  });
 }
 
 const app = http.createServer((req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
   if (req.url === '/') {
     res.write('Hello Holberton School!');
     res.end();
   } else if (req.url === '/students') {
-    res.setHeader('Content-Type', 'text/plain');
     countStudents(process.argv[2])
       .then((output) => {
       // console.log(output);
