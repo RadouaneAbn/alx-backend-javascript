@@ -3,7 +3,7 @@ import router from './routes';
 
 const port = 1245;
 const app = express();
-console.log('app created');
+// console.log('app created');
 app.use(router);
 
 app.listen(port, () => {
