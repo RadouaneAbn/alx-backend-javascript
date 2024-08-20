@@ -5,12 +5,12 @@ class StudentsController {
     response.status = 200;
     readDatabase(process.argv[2])
       .then((data) => {
-        let output = 'This is the list of our students\n';
+        const output = ['This is the list of our students'];
         const sortedData = Object.entries(data).sort((a, b) => a[0].localeCompare(b[0], undefined, { sensitivity: 'base' }));
         for (const [key, value] of sortedData) {
-          output += `Number of students in ${key}: ${value.length}. List: ${value.join(', ')}\n`;
+          output.push(`Number of students in ${key}: ${value.length}. List: ${value.join(', ')}`);
         }
-        response.send(output.trimEnd());
+        response.send(output.join('\n'));
       })
       .catch(() => {
         response.status = 500;
