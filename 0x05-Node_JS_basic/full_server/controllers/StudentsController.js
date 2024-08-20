@@ -13,8 +13,7 @@ class StudentsController {
         response.send(output.trimEnd());
       })
       .catch(() => {
-        response.status = 400;
-        response.send('Cannot load the database');
+        response.status(500).send('Cannot load the database');
       });
   }
 
@@ -31,8 +30,7 @@ class StudentsController {
         response.send(`List: ${data[major].join(', ')}`);
       })
       .catch(() => {
-        response.status = 500;
-        response.send('Cannot load the database');
+        response.status(500).send('Cannot load the database');
       });
   }
 }
