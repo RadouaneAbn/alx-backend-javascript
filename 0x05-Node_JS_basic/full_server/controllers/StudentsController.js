@@ -2,7 +2,6 @@ import readDatabase from '../utils';
 
 class StudentsController {
   static getAllStudents(request, response) {
-    response.status = 200;
     readDatabase(process.argv[2])
       .then((data) => {
         const output = ['This is the list of our students'];
